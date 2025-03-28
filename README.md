@@ -120,5 +120,5 @@
 
 ### ✅ Solution
 
-Схема декомпозиции монолитного решения доступна по [ссылке](https://tbd.todo)
+Схема декомпозиции монолитного решения доступна по [ссылке](https://github.com/olpotkin/mesto-architecture-sprint-1/blob/mesto/sprint-1-task-2.drawio)
 *(см. вкладку `Decomposition`)*
