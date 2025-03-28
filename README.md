@@ -23,7 +23,95 @@
 - *TODO-5: Описать компоненты, модули и запуск. А также обосновать своё решение — написать, почему использовали именно этот подход и разделили фронтенд на такие микрофронтенды.*
 
 ### Solution
-*TBD...*
+
+#### Domain-Driven Design (DDD) для разбиения
+
+Проанализировав бизнес-логику монолитного решения, выделены следующие микрофронтенды:
+
+- `auth-microfrontend` – модуль для аутентификации
+- `profile-microfrontend` – модуль для работы с профилем пользователя
+- `photo-microfrontend` – модуль для работы с фотографиями
+- `host-microfrontend` – основное приложение (динамически загружает 3 вышеперечисленных модуля)
+
+#### Новая структура проекта (включая каждый микрофронтенд)
+
+```
+/auth-microfrontend
+  /src
+    /components
+      Login.js               // Компонент входа пользователя
+      Register.js            // Компонент регистрации пользователя
+    /styles
+      /login
+        login.css            // Стили для компонента входа
+      /auth-form
+        auth-form.css        // Стили для компонента аутентификации      
+    /utils
+      auth.js                // Утилиты для аутентификации
+    index.js                 // Точка входа микрофронтенда
+  package.json               // Зависимости и скрипты микрофронтенда
+  webpack.config.js
+/profile-microfrontend
+  /src
+    /components
+      EditAvatarPopup.js     // Компонент редактирования аватара пользователя
+      EditProfilePopup.js    // Компонент редактирования профиля пользователя
+      PopupWithForm.js       // Компонент диалогового окна сохранения
+    /contexts
+      CurrentUserContext.js  // Контекст
+    /styles
+      /popup
+        popup.css            // Стили для компонента окна сохранения
+      /profile
+        profile.css          // Стили для компонента профиля пользователя
+    index.js                 // Точка входа микрофронтенда
+  package.json               // Зависимости и скрипты микрофронтенда
+  webpack.config.js
+/photo-microfrontend
+  /src
+    /components
+      AddPlacePopup.js       // Компонент добавления фото
+      Card.js                // Компонент карточки с изображением
+      ImagePopup.js          // Компонент показа фото
+      PopupWithForm.js       // Компонент диалогового окна сохранения
+    /contexts
+      CurrentUserContext.js  // Контекст
+    /styles
+      /card
+        card.css             // Стили для компонента карточки изображения
+      /popup
+        popup.css            // Стили для компонента окна сохранения
+    index.js                 // Точка входа микрофронтенда
+  package.json               // Зависимости и скрипты микрофронтенда
+  webpack.config.js
+/host-microfrontend
+  /src
+    /components
+      App.js                 // Компонент основной
+      Footer.js              // Компонент футер
+      Header.js              // Компонент хедер
+      InfoTooltip.js         // Компонент информационное окно
+      Main.js                // Компонент для отображения списка с карточками изображений
+      PopupWithForm.js       // Компонент диалогового окна сохранения
+      ProtectedRoute.js      // Компонент маршрутизатор
+    /contexts
+      CurrentUserContext.js  // Контекст
+    /styles
+      /footer
+        footer.css           // Стили для компонента футера
+      /header
+        header.css           // Стили для компонента хедера
+      /page
+        page.css             // Стили для списка с карточками изображений
+      /profile
+        profile.css          // Стили для компонента профиля
+    /utils
+      api.js
+    index.js                 // Точка входа микрофронтенда
+  package.json               // Зависимости и скрипты микрофронтенда
+  webpack.config.js
+
+```
 
 # Задание 2
 Декомпозировать веб-приложения на `Django` на микросервисы в онлайн-редакторе `draw.io`.
